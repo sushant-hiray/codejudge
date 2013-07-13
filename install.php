@@ -27,8 +27,8 @@
 		// create the preferences table
 		mysql_query("CREATE TABLE IF NOT EXISTS `prefs` (
   `name` varchar(30) NOT NULL,
-  `start` int(11) NOT NULL,
-  `end` int(11) NOT NULL,
+  `start` datetime NOT NULL,
+  `end` datetime NOT NULL,
   `c` int(11) NOT NULL,
   `cpp` int(11) NOT NULL,
   `java` int(11) NOT NULL,
@@ -36,8 +36,8 @@
   `formula` text NOT NULL
 )");
 		// fill it with default preferences
-		mysql_query("INSERT INTO `prefs` (`name`, `start`, 'end', `c`, `cpp`, `java`, `python`, `forumla`) VALUES
-('Codejudge', 01/01/70 00:00:00, 01/01/70 00:00:00, 1, 1, 1,'\$score = \$points / \$attempts')");
+		mysql_query("INSERT INTO `prefs` (`name`, `start`, `end`, `c`, `cpp`, `java`, `python`, `formula`) VALUES
+('Codejudge', '2013-01-01 00:00:00', '2020-01-01 00:00:00', 1, 1, 1, 1,'\$score = \$points / \$attempts')") or die(mysql_error());
 		// create the problems table
 		mysql_query("CREATE TABLE IF NOT EXISTS `problems` (
   `sl` int(11) NOT NULL AUTO_INCREMENT,

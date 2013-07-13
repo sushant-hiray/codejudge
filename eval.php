@@ -16,8 +16,9 @@
         $query = "SELECT status FROM users WHERE username='".$_SESSION['username']."'";
         $result = mysql_query($query);
         $status = mysql_fetch_array($result);
+        $today = date("Y-m-d H:i:s");
         // check if the user is banned or allowed to submit and SQL Injection checks
-        if($accept['end'] >time() and $status['status'] == 1 and is_numeric($_POST['id'])) {
+        if($accept['end'] >$today and $status['status'] == 1 and is_numeric($_POST['id'])) {
         	$soln = mysql_real_escape_string($_POST['soln']);
         	$filename = mysql_real_escape_string($_POST['filename']);
         	$lang = mysql_real_escape_string($_POST['lang']);

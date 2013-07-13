@@ -40,17 +40,19 @@
         else if(isset($_GET['derror']))
           echo("<div class=\"alert alert-error\">\nPlease enter all the details asked before you can continue!\n</div>");
           
-        $query = "SELECT * FROM prefs";
+        $query = "SELECT name, start, end, c, cpp, java, python FROM prefs";
         $result = mysql_query($query);
         $accept = mysql_fetch_array($result);
         $query = "SELECT status FROM users WHERE username='".$_SESSION['username']."'";
         $result = mysql_query($query);
         $status = mysql_fetch_array($result);
-        if($accept['end'] < time())
+        $today = date("Y-m-d H:i:s");
+        if($accept['end'] < $today)
           echo("<div class=\"alert alert-error\">\nSubmissions are closed now!\n</div>");
         if($status['status'] == 0)
-          echo("<div class=\"alert alert-error\">\nYou have been banned. You cannot submit a solution.\n</div>");
-	if($accept['start']>time())
+          echo("<div class=\"alert alert-error\">\nYou have been banned. You cannot submit a solution.\n</div>");$today = date("Y-m-d H:i:s");
+        
+	if($accept['start']>$today)
 	  header('location:index.php');
       ?>
     <h1><small>Submit Solution</small></h1>
@@ -104,7 +106,7 @@
       </div>
       <br/>Type your program below:<br/><br/>
       <textarea style="font-family: mono; height:400px;" class="span9" name="soln" id="text"><?php if(!($num == 0)) echo($fields['soln']); else echo "// For Java users : Name your class 'Solution'";?></textarea><br/>
-      <?php if($accept['end'] > time() and $status['status'] == 1) echo("<input type=\"submit\" value=\"Run\" class=\"btn btn-primary btn-large\"/>");
+      <?php if($accept['end'] > $today and $status['status'] == 1) echo("<input type=\"submit\" value=\"Run\" class=\"btn btn-primary btn-large\"/>");
             else echo("<input type=\"submit\" value=\"Run\" class=\"btn disabled btn-large\" disabled=\"disabled\"/>");
       ?>
       <span class="label label-info">You are allowed to use any of the following languages: 
